@@ -145,9 +145,6 @@ public:
 		
 		shape->draw (*openGLContext, *attributes);
 		
-		if (uniforms->grainAlpha != nullptr)
-			uniforms->grainAlpha->set(0.8f);
-		
 		// Reset the element buffers so child Components draw correctly
 		openGLContext->extensions.glBindBuffer (GL_ARRAY_BUFFER, 0);
 		openGLContext->extensions.glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, 0);
