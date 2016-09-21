@@ -223,7 +223,7 @@ private:
 				attributes = new Attributes (*openGLContext, *shader);
 				uniforms   = new Uniforms (*openGLContext, *shader);
 				
-				statusText = "GLSL: v" + String (OpenGLShaderProgram::getLanguageVersion(), 2) + " " + String(random());
+				//statusText = "GLSL: v" + String (OpenGLShaderProgram::getLanguageVersion(), 2) + " " + String(random());
 			}
 			else
 			{
