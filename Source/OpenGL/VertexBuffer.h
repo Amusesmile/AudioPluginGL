@@ -58,8 +58,25 @@ struct VertexBuffer
 		const float scale = 5.0f;
 		vertices.clear();
 		indices.clear();
+		
+		float xFreq = 2+rand()%10;
+		float yFreq = 2+rand()%10;
+		float zFreq = 2+rand()%10;
+		float twoPi = 3.1415926*2;
+		float dataSize = data.size();
+		
 		for (int i = 0; i < data.size(); ++i)
 		{
+			float temp = dataSize/float(i);
+			float x = sin(temp*xFreq*twoPi+xFreq)*xFreq*0.4;
+			float y = sin(temp*yFreq*twoPi+yFreq)*yFreq*0.4;
+			float z = sin(temp*zFreq*twoPi+zFreq)*zFreq*0.4;
+			
+			float r = data[i][0];
+			float g = data[i][1];
+			float b = data[i][2];
+			
+			/*
 			float exponent = 1.0;
 			float offset = 0.5;//0.5;
 			
@@ -80,6 +97,7 @@ struct VertexBuffer
 			float r = data[i][0];//powf((float)data[i][0], exponent)*scale;
 			float g = data[i][1];//powf((float)data[i][1], exponent)*scale;
 			float b = data[i][2];//powf((float)data[i][2], exponent)*scale;
+			 */
 			
 			Vertex vert =
 			{

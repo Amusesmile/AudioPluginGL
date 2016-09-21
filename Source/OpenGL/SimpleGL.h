@@ -52,29 +52,40 @@ const String frag =
 class SimpleGL
 : public juce::Component
 , public OpenGLRenderer
+, public Timer
 {
 public:
-	SimpleGL(Component* topLevelComponent, OpenGLContext* _openGLContext)
+	SimpleGL(OpenGLContext* _openGLContext)
 	: scale (0.5f)
 	, rotationSpeed (0.01f)
 	, rotation (0.0f)
 	, openGLContext(_openGLContext)
+	, force(false)
 	{
 		setOpaque (true);
 		openGLContext->setRenderer (this);
 		openGLContext->attachTo (*this);
 		openGLContext->setContinuousRepainting (true);
+		
 	}
 	
 	~SimpleGL()
 	{
+		stopTimer();
 		openGLContext->detach();
+	}
+	
+	void timerCallback() override
+	{
+		//openGLContext->triggerRepaint();
 	}
 	
 	void setData(std::vector<std::vector<double>> _data)
 	{
+		stopTimer();
 		data = _data;
-		updateShader(true);
+		force = true;//update on next render call
+		//startTimer(100);
 	}
 	
 	void newOpenGLContextCreated() override
@@ -183,12 +194,13 @@ public:
 	}
 	
 private:
-	void updateShader(bool force = false)
+	void updateShader()
 	{
 		if(force)
 		{
 			newVertexShader = vert;
 			newFragmentShader = frag;
+			force = false;
 		}
 		
 		if (newVertexShader.isNotEmpty() || newFragmentShader.isNotEmpty())
@@ -242,6 +254,7 @@ private:
 	Draggable3DOrientation draggableOrientation;
 	float scale;
 	float rotationSpeed;
+	bool force;
 	
 };
 

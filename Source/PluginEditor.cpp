@@ -52,11 +52,6 @@ public:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ParameterSlider)
 };
 
-float randomFloat()
-{
-	return float(rand())/float(RAND_MAX);
-}
-
 //==============================================================================
 JuceDemoPluginAudioProcessorEditor::JuceDemoPluginAudioProcessorEditor (JuceDemoPluginAudioProcessor& owner)
     : AudioProcessorEditor (owner),
@@ -66,12 +61,11 @@ JuceDemoPluginAudioProcessorEditor::JuceDemoPluginAudioProcessorEditor (JuceDemo
       delayLabel (String::empty, "Delay:")
 {	
 	
-	glContext.setContinuousRepainting(true);
-	glContext.setMultisamplingEnabled(true);
-	glContext.attachTo(*this);
+//	glContext.setContinuousRepainting(true);
+//	glContext.setMultisamplingEnabled(true);
+//	glContext.attachTo(*this);
 	
-	Component* topLevelComponent = getTopLevelComponent();
-	simpleGL = new SimpleGL(topLevelComponent, &glContext);
+	simpleGL = new SimpleGL(&glContext);
 	addAndMakeVisible(simpleGL);
 	
 	updateDisplayButton = new TextButton("Update");
@@ -103,9 +97,9 @@ void JuceDemoPluginAudioProcessorEditor::buttonClicked(Button* b)
 		for(int i = 0;i<NUM_GRAINS;i++)
 		{
 			std::vector<double> position;
-			position.push_back(randomFloat());
-			position.push_back(randomFloat());
-			position.push_back(randomFloat());
+			position.push_back((rand())/float(RAND_MAX));
+			position.push_back((rand())/float(RAND_MAX));
+			position.push_back((rand())/float(RAND_MAX));
 			grains.push_back(position);
 		}
 		
